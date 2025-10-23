@@ -37,5 +37,4 @@ public class LeetCodeApplication {
 		}
 		return count;
 	}
-
 }
