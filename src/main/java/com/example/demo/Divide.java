@@ -1,6 +1,6 @@
 package com.example.demo;
 
-public class LeetCodeApplication {
+public class Divide {
 	public static void main(String[] args) {
 		int dividend = 99; // số chia
 		int divisor = 0; // số bị chia
