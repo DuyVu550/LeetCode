@@ -2,8 +2,8 @@ package com.example.demo;
 
 public class Divide {
 	public static void main(String[] args) {
-		int dividend = 99; // số chia
-		int divisor = 0; // số bị chia
+		int dividend = -97; // số chia
+		int divisor = -3; // số bị chia
 		System.out.println("Dividend: " + dividend + " Divisor: " + divisor);
 		if (divisor == 0) {
 			System.out.println("Can't divide by 0");

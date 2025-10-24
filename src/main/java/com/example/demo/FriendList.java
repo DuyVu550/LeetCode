@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Set;
 
-public class LeetCodeApplication2 {
+public class FriendList {
     static String logs[] = {
             "A B 10",
             "B C 20",
