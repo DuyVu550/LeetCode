@@ -11,9 +11,9 @@ public class Divide {
 		}
 		// If both numbers have the same sign, the result is positive
 		if ((dividend < 0 && divisor < 0) || (dividend > 0 && divisor > 0))
-			System.out.println("Ket qua phep tinh: " + Calc(dividend, divisor));
+			System.out.println("Result: " + Calc(dividend, divisor));
 		else
-			System.out.println("Ket qua phep tinh: " + -Calc(dividend, divisor));
+			System.out.println("Result: " + -Calc(dividend, divisor));
 	}
 
 	// Compute division using repeated subtraction
