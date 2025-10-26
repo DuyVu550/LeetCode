@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FriendCalculator {
 
@@ -24,19 +25,57 @@ public class FriendCalculator {
         return list;
     }
 
-    public int MaxDeepFriend(String owner, Friend[] friends) {
-        int maxDeep = 0;
-        // TODO: Implement the logic to find the maximum depth of the friends of the
-        // owner
-        for (Friend f : friends) {
-            if (f.getFrom().equals(owner)) {
-                int depth = 1 + MaxDeepFriend(f.getTo(), friends);
-                if (depth > maxDeep) {
-                    maxDeep = depth;
+    public static void FindDeepFriend(String owner, int deep, List<Friend> friendList,
+            List<DeepFriend> deepFriendList) {
+        if (deepFriendList.isEmpty()) {
+            deepFriendList.add(new DeepFriend(owner, deep, true));
+            deep++;
+        }
+
+        for (var i = 0; i < friendList.size(); i++) {
+            var friendFrom = friendList.get(i).getFrom();
+            var friendTo = friendList.get(i).getTo();
+            if (friendFrom.equals(owner) || friendTo.equals(owner)) {
+                if (friendFrom.equals(owner)) {
+                    deepFriendList = addDeepFriendList(friendTo, deep, deepFriendList);
+                } else {
+                    deepFriendList = addDeepFriendList(friendFrom, deep, deepFriendList);
                 }
+            }
+
+        }
+        for (var i = 0; i < deepFriendList.size(); i++) {
+            if (!deepFriendList.get(i).getVisited()) {
+                deepFriendList.get(i).setVisited(true);
+                FindDeepFriend(deepFriendList.get(i).getFriend(), deepFriendList.get(i).getDeep() + 1, friendList,
+                        deepFriendList);
+            }
+        }
+    }
+
+    public int MaxDeepFriend(List<DeepFriend> deepFriendList) {
+        var maxDeep = 0;
+        for (DeepFriend df : deepFriendList) {
+            var deep = df.getDeep();
+            if (maxDeep < deep) {
+                maxDeep = deep;
             }
         }
         return maxDeep;
+    }
+
+    public static List<DeepFriend> addDeepFriendList(String owner, int deep, List<DeepFriend> deepFriendList) {
+        var checkExist = false;
+        for (DeepFriend df : deepFriendList) {
+            if (owner.equals(df.getFriend())) {
+                df.setVisited(true);
+                checkExist = true;
+            }
+        }
+        if (!checkExist) {
+            deepFriendList.add(new DeepFriend(owner, deep, false));
+        }
+        return deepFriendList;
     }
 
     public static void main(String[] args) {
@@ -50,8 +89,15 @@ public class FriendCalculator {
                 new Friend("D", "I", 0),
                 new Friend("G", "H", 5),
         };
+
+        List<Friend> friendList = new ArrayList<>();
+        for (Friend f : friends) {
+            friendList.add(f);
+        }
+        List<DeepFriend> deepFriendList = new ArrayList<>();
+        FindDeepFriend("A", 0, friendList, deepFriendList);
         FriendCalculator alg = new FriendCalculator();
         System.out.println(alg.ListFriend("A", friends));
-        System.out.println(alg.MaxDeepFriend("C", friends));
+        System.out.println(alg.MaxDeepFriend(deepFriendList));
     }
 }
