@@ -33,20 +33,21 @@ public class FriendCalculator {
 
     private int getDepth(String owner, Friend[] friends, Set<String> blocked) {
         int maxDepth = 0;
+        // find directed friend
         Set<String> directFriends = new HashSet<>();
         for (Friend f : friends) {
             if (f.getFrom().equals(owner)) {
                 directFriends.add(f.getTo());
             }
         }
-
+        // if friend are not directed or blocked, ignoring them
         for (Friend f : friends) {
             if (!f.getFrom().equals(owner) || blocked.contains(f.getTo())) {
                 continue;
             }
+            // create set to blocked friend
             Set<String> newBlocked = new HashSet<>(blocked);
             newBlocked.addAll(directFriends);
-
             int depth = 1 + getDepth(f.getTo(), friends, newBlocked);
             if (depth > maxDepth) {
                 maxDepth = depth;
@@ -67,7 +68,7 @@ public class FriendCalculator {
                 new Friend("G", "H", 5),
         };
         FriendCalculator alg = new FriendCalculator();
-        System.out.println(alg.ListFriend("A", friends));
-        System.out.println(alg.MaxDeepFriend("A", friends));
+        System.out.println(alg.ListFriend("B", friends));
+        System.out.println(alg.MaxDeepFriend("B", friends));
     }
 }
