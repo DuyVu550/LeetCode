@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class FriendCalculator {
 
@@ -25,18 +27,32 @@ public class FriendCalculator {
     }
 
     public int MaxDeepFriend(String owner, Friend[] friends) {
-        int maxDeep = 0;
-        // TODO: Implement the logic to find the maximum depth of the friends of the
-        // owner
+        Set<String> blocked = new HashSet<>();
+        return getDepth(owner, friends, blocked);
+    }
+
+    private int getDepth(String owner, Friend[] friends, Set<String> blocked) {
+        int maxDepth = 0;
+        Set<String> directFriends = new HashSet<>();
         for (Friend f : friends) {
             if (f.getFrom().equals(owner)) {
-                int depth = 1 + MaxDeepFriend(f.getTo(), friends);
-                if (depth > maxDeep) {
-                    maxDeep = depth;
-                }
+                directFriends.add(f.getTo());
             }
         }
-        return maxDeep;
+
+        for (Friend f : friends) {
+            if (!f.getFrom().equals(owner) || blocked.contains(f.getTo())) {
+                continue;
+            }
+            Set<String> newBlocked = new HashSet<>(blocked);
+            newBlocked.addAll(directFriends);
+
+            int depth = 1 + getDepth(f.getTo(), friends, newBlocked);
+            if (depth > maxDepth) {
+                maxDepth = depth;
+            }
+        }
+        return maxDepth;
     }
 
     public static void main(String[] args) {
@@ -50,9 +66,6 @@ public class FriendCalculator {
                 new Friend("D", "I", 0),
                 new Friend("G", "H", 5),
         };
-        // A [B, D, E] [C, I, F]
-        // => list Friend of A: [B, D, E, C, I, F]
-        // => max deep friend of A: 2
         FriendCalculator alg = new FriendCalculator();
         System.out.println(alg.ListFriend("A", friends));
         System.out.println(alg.MaxDeepFriend("A", friends));
