@@ -50,8 +50,11 @@ public class FriendCalculator {
                 new Friend("D", "I", 0),
                 new Friend("G", "H", 5),
         };
+        // A [B, D, E] [C, I, F]
+        // => list Friend of A: [B, D, E, C, I, F]
+        // => max deep friend of A: 2
         FriendCalculator alg = new FriendCalculator();
         System.out.println(alg.ListFriend("A", friends));
-        System.out.println(alg.MaxDeepFriend("C", friends));
+        System.out.println(alg.MaxDeepFriend("A", friends));
     }
 }
