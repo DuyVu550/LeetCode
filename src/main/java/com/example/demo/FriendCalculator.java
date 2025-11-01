@@ -68,7 +68,7 @@ public class FriendCalculator {
                 new Friend("G", "H", 5),
         };
         FriendCalculator alg = new FriendCalculator();
-        System.out.println(alg.ListFriend("B", friends));
-        System.out.println(alg.MaxDeepFriend("B", friends));
+        System.out.println(alg.ListFriend("A", friends));
+        System.out.println(alg.MaxDeepFriend("A", friends));
     }
 }
