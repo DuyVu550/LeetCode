@@ -19,4 +19,17 @@ public class Single_improved {
             }
         }
     }
+
+    public static void duynq(String[] args) {
+        int[] a = { 1, 2, 1, 2, 1, 2, 6, 6, 8, 9, 9, -2, 6 };
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < a.length; i++) {
+            map.put(a[i], map.get(a[i]) + 1);
+        }
+        for (int k : map.keySet()) {
+            if (map.get(k) == 1) {
+                System.out.print(k + " ");
+            }
+        }
+    }
 }
