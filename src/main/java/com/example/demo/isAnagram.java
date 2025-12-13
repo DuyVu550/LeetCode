@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class isAnagram {
-    public static boolean isAnagram(String s, String t) {
+    public boolean isAnagram(String s, String t) {
         if (s.length() != t.length()) {
             return false;
         }
@@ -24,11 +24,5 @@ public class isAnagram {
             }
         }
         return true;
-    }
-
-    public static void main(String[] args) {
-        String s = "abba";
-        String t = "bba";
-        System.out.println(isAnagram(s, t));
     }
 }
