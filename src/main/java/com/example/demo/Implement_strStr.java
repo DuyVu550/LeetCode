@@ -6,16 +6,24 @@ public class Implement_strStr {
             return -1;
         for (int i = 0; i <= haystack.length() - needle.length(); i++) {
             if (haystack.charAt(i) == needle.charAt(0)) {
-                if (haystack.substring(i, needle.length() + i).equals(needle)) {
+                int temp = i;
+                boolean check = true;
+                for (int j = 1; j < needle.length(); j++) {
+                    temp++;
+                    if (haystack.charAt(temp) != needle.charAt(j)) {
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) {
                     return i;
                 }
             }
-
         }
         return -1;
     }
 
     public static void main(String[] args) {
-        System.out.println(strStr("badsad", "sad"));
+        System.out.println(strStr("sdsadsa", "sad"));
     }
 }
