@@ -24,6 +24,6 @@ public class Implement_strStr {
     }
 
     public static void main(String[] args) {
-        System.out.println(strStr("sdsadsa", "sad"));
+        System.out.println(strStr("heoll", "ll"));
     }
 }
