@@ -2,35 +2,30 @@ package com.example.demo;
 
 public class String_To_Integer {
     public int myAtoi(String s) {
-        int number = 0;
+        if (s.length() == 0) {
+            return 0;
+        }
         s = s.trim();
-        // whitespace
-        String t = s;
-        t = t.replace("+", " ");
-        t = t.replace("-", " ");
-        t = t.trim();
-        if (!Character.isDigit(t.charAt(0)) && !Character.isDigit(t.charAt(1))) {
-            return number;
+        int number = 0;
+        int i = 0;
+        int sign = 1;
+        if (s.charAt(i) == '-' || s.charAt(i) == '+') {
+            sign = (s.charAt(i) == '-') ? -1 : 1;
+            i++;
         }
-        for (int i = 0; i < t.length(); i++) {
-            char c = t.charAt(i);
-            if (Character.isDigit(c)) {
-                number = number * 10 + (c - '0');
-            } else {
-                if (s.charAt(0) == '-') {
-                    number = number * -1;
+        // Digits
+        while (i < s.length() && Character.isDigit(s.charAt(i))) {
+            int digit = s.charAt(i) - '0';
+            // number * 10 + digit > Integer.MAX_VALUE (wrong condition)
+            if (number > (Integer.MAX_VALUE - digit) / 10) {
+                if (sign == -1) {
+                    return Integer.MIN_VALUE;
                 }
-                return number;
+                return Integer.MAX_VALUE;
             }
+            number = number * 10 + digit;
+            i++;
         }
-        if (s.charAt(0) == '-') {
-            number = number * -1;
-        }
-        if (number < Math.pow(-2, 31)) {
-            number = (int) Math.pow(-2, 31);
-        } else if (number > Math.pow(2, 31) - 1) {
-            number = (int) Math.pow(2, 31) - 1;
-        }
-        return number;
+        return number * sign;
     }
 }

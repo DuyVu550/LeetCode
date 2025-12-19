@@ -2,20 +2,22 @@ package com.example.demo;
 
 public class reverseInteger {
     public int reverse(int x) {
-        int temp = x;
-        // change negative number to positive number
-        if (temp < 0)
-            temp *= -1;
+        if (x < Integer.MIN_VALUE || x > Integer.MAX_VALUE) {
+            return 0;
+        }
         int digit = 0;
-        while (temp > 0) {
-            int balance = temp % 10;
+        int sign = 1;
+        sign = (x < 0) ? -1 : 1;
+        x = x * sign;
+        while (x > 0) {
+            int balance = x % 10;
+            // digit * 10 + balance > Integer.MAX_VALUE (wrong direction)
+            if (digit > (Integer.MAX_VALUE - balance) / 10) {
+                return 0;
+            }
             digit = digit * 10 + balance;
-            temp /= 10;
+            x /= 10;
         }
-        // if negative number, reverseNumber * -1
-        if (x < 0) {
-            digit *= -1;
-        }
-        return digit;
+        return digit * sign;
     }
 }

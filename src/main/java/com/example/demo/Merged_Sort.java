@@ -16,5 +16,10 @@ public class Merged_Sort {
                 j--;
             }
         }
+        while (j >= 0) {
+            nums1[k] = nums2[j];
+            k--;
+            j--;
+        }
     }
 }

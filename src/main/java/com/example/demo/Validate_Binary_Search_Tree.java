@@ -29,8 +29,8 @@ public class Validate_Binary_Search_Tree {
     public boolean isValid(TreeNode root, int left, int right) {
         if (root == null)
             return true;
-        if (root.val < right && left < root.val)
-            return isValid(root.left, left, root.val) && isValid(root.right, root.val, right);
-        return false;
+        if (root.val <= left && root.val >= right)
+            return false;
+        return isValid(root.left, left, root.val) && isValid(root.right, root.val, right);
     }
 }
